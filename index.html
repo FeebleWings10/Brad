@@ -339,6 +339,49 @@
   height: 100%;
 }
 
+/* Slider container */
+.slider {
+  position: relative;
+  overflow: hidden;
+  height: 250px; /* same height as before */
+}
+
+/* Container for all slides */
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+  height: 100%;
+}
+
+/* Each slide */
+.slides img {
+  min-width: 100%;
+  object-fit: cover;
+}
+
+/* Navigation buttons */
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+
   </style>
 
   <!-- 1) Include EmailJS SDK -->
@@ -406,22 +449,40 @@
             <span class="price">£650</span>
           </div>
         </div>
+
         <div class="furniture-card">
-          <div class="furniture-img"><a href="sofa1.html"><img src="1.png" alt="" width="130%" ></a></div>
-          <div class="furniture-info">
-            <a href="sofa1.html"><h3>Mid-Century Armchair</h3></a>
-            <a href="sofa1.html"><p>1960s design, reupholstered in premium cream fabric with restored wooden legs.</p></a>
-            <span class="price">£320</span>
-          </div>
-        </div>
-        <div class="furniture-card">
-            <div class="furniture-img"><a href="sofa1.html"><img src="1.png" alt="" width="130%" ></a></div>
-            <div class="furniture-info">
-              <h3>Mid-Century Armchair</h3>
-              <p>1960s design, reupholstered in premium cream fabric with restored wooden legs.</p>
-              <span class="price">£320</span>
+            <div class="slider">
+              <div class="slides">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Front View">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Side View">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Detail View">
+              </div>
+              <button class="prev">&#10094;</button>
+              <button class="next">&#10095;</button>
             </div>
-          </div>
+            <div class="furniture-info">
+              <a href="sofa1.html"><h3>Vintage Chesterfield Sofa</h3></a>
+              <a href="sofa1.html"><p>Classic brown leather, fully restored with new padding and polished studs.</p></a>
+              <span class="price">£650</span>
+            </div>
+        </div>
+
+        <div class="furniture-card">
+            <div class="slider">
+              <div class="slides">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Front View">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Side View">
+                <img src="1.png" alt="Vintage Chesterfield Sofa - Detail View">
+              </div>
+              <button class="prev">&#10094;</button>
+              <button class="next">&#10095;</button>
+            </div>
+            <div class="furniture-info">
+              <a href="sofa1.html"><h3>Vintage Chesterfield Sofa</h3></a>
+              <a href="sofa1.html"><p>Classic brown leather, fully restored with new padding and polished studs.</p></a>
+              <span class="price">£650</span>
+            </div>
+        </div>
 
         <!-- ... more furniture items ... -->
       </div>
@@ -586,6 +647,120 @@
 
   <!-- 4) JavaScript to handle form submission with EmailJS -->
   <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sliders = document.querySelectorAll('.slider');
+
+  sliders.forEach(slider => {
+    let currentSlide = 0;
+    let autoScrollInterval = null;
+    let startX = 0;
+    let isDragging = false;
+    const slides = slider.querySelector('.slides');
+    const totalSlides = slides.children.length;
+    const nextButton = slider.querySelector('.next');
+    const prevButton = slider.querySelector('.prev');
+
+    // Update the slide position with a smooth transition
+    function updateSlide() {
+      slides.style.transition = 'transform 0.5s ease';
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Button controls
+    nextButton.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    });
+
+    // Auto-scroll functions (for desktop hover)
+    function startAutoScroll() {
+      if (!autoScrollInterval) {
+        autoScrollInterval = setInterval(() => {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          updateSlide();
+        }, 2500);
+      }
+    }
+
+    function stopAutoScroll() {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+      }
+    }
+
+    // Desktop auto-scroll triggers
+    slider.addEventListener('mouseenter', startAutoScroll);
+    slider.addEventListener('mouseleave', stopAutoScroll);
+
+    // Touch events for mobile dragging
+    slider.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      slides.style.transition = 'none'; // disable transition during drag
+      stopAutoScroll(); // stop auto-scroll while dragging
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      // Move the slides relative to the current slide and drag distance
+      slides.style.transform = `translateX(calc(-${currentSlide * 100}% + ${deltaX}px))`;
+    });
+
+    slider.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const endX = e.changedTouches[0].clientX;
+      const deltaX = endX - startX;
+      const swipeThreshold = 50; // minimum pixels needed to swipe
+
+      if (deltaX > swipeThreshold) {
+        // Swipe right: go to previous slide
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      } else if (deltaX < -swipeThreshold) {
+        // Swipe left: go to next slide
+        currentSlide = (currentSlide + 1) % totalSlides;
+      }
+      // Re-enable the transition and update to the chosen slide
+      slides.style.transition = 'transform 0.5s ease';
+      updateSlide();
+      isDragging = false;
+    });
+
+    slider.addEventListener('touchcancel', (e) => {
+      // In case of cancellation, simply snap back to the current slide
+      slides.style.transition = 'transform 0.5s ease';
+      updateSlide();
+      isDragging = false;
+    });
+  });
+});
+
+      // Stop auto-scroll when mouse leaves or touch ends
+      function stopAutoScroll() {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+          autoScrollInterval = null;
+        }
+      }
+
+      // For desktop devices
+      slider.addEventListener('mouseenter', startAutoScroll);
+      slider.addEventListener('mouseleave', stopAutoScroll);
+
+      // For touch devices (mobile)
+      slider.addEventListener('touchstart', startAutoScroll);
+      slider.addEventListener('touchend', stopAutoScroll);
+      slider.addEventListener('touchcancel', stopAutoScroll);
+
+
+
     document.getElementById('contact-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
