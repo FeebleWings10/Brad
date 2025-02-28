@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vintage Chesterfield Sofa | All Saints Furniture</title>
+  <style>
+    /* ============ Global Styles (reuse as needed) ============ */
+    :root {
+      --primary-cream: #f5f2e9;
+      --secondary-cream: #e8e2d1;
+      --accent-cream: #d6ceb8;
+      --text-dark: #3c3c3c;
+      --text-medium: #6a6a6a;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: var(--primary-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* ============ Header Styles ============ */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .logo span {
+      color: var(--text-medium);
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin-left: 40px;
+      font-weight: 500;
+    }
+    nav ul li a:hover {
+      color: var(--text-medium);
+    }
+    /* ============ Product Details Section ============ */
+    .product-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 60px 0;
+      align-items: flex-start;
+    }
+    .product-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    .product-image img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    .product-info h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .product-info .price {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+    .product-info p {
+      margin-bottom: 20px;
+      color: var(--text-medium);
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: var(--text-dark);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .cta-button:hover {
+      background-color: var(--text-medium);
+      transform: translateY(-2px);
+    }
+    /* ============ Footer Styles ============ */
+    footer {
+      background-color: var(--text-dark);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+      }
+      nav ul {
+        margin-top: 20px;
+      }
+      nav ul li {
+        margin: 0 15px;
+      }
+      .product-details {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="nav-container">
+        <div class="logo">
+          All Saints <span>Furniture</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#featured">Featured</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Details Section -->
+  <main class="container">
+    <section class="product-details">
+      <div class="product-image">
+        <!-- Replace with actual product image -->
+        <img src="1.png" alt="Vintage Chesterfield Sofa" />
+      </div>
+      <div class="product-info">
+        <h1>Vintage Chesterfield Sofa</h1>
+        <p class="price">£650</p>
+        <p>
+          This classic brown leather Chesterfield sofa has been fully restored to bring back its original charm.
+          It features new padding, polished studs, and quality craftsmanship, ensuring both comfort and style.
+        </p>
+        <p>
+          Perfect for adding a touch of vintage elegance to any room, this sofa makes a statement with its timeless design.
+          Enjoy the blend of historic character and modern durability.
+        </p>
+        <a href="index.html#featured" class="cta-button">Back to Collection</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div>
+        <h3>All Saints Furniture</h3>
+        <p>
+          Quality second hand furniture in Bromsgrove, serving Worcestershire and the West Midlands since 2015.
+        </p>
+      </div>
+      <div>
+        <p>&copy; 2025 All Saints Furniture. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
