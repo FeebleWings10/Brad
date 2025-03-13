@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbarCollapse = document.querySelector('.navbar-collapse');
     let isAnimating = false;
     
+    // Set initial state for the toggler
+    navbarToggler.setAttribute('aria-expanded', 'false');
+    
     // Toggle mobile menu function with debounce to prevent multiple rapid clicks
     function toggleMobileMenu(e) {
         // Prevent default behavior
         if (e) e.preventDefault();
+        console.log('Toggle menu clicked');
         
         // Prevent multiple clicks during animation
         if (isAnimating) return;
@@ -29,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (navbarCollapse.classList.contains('show')) {
             // Close menu
+            console.log('Closing menu');
             navbarCollapse.classList.remove('show');
             navbarCollapse.style.maxHeight = '0';
             navbarToggler.setAttribute('aria-expanded', 'false');
@@ -39,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300); // Match this with your CSS transition duration
         } else {
             // Open menu
+            console.log('Opening menu');
             navbarCollapse.classList.add('show');
             navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
             navbarToggler.setAttribute('aria-expanded', 'true');
@@ -50,20 +56,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle burger button click with touchstart for mobile devices
-    navbarToggler.addEventListener('click', toggleMobileMenu);
-    
-    // Add touchstart event for better mobile response
-    navbarToggler.addEventListener('touchstart', function(e) {
-        e.preventDefault(); // Prevent ghost click
-        toggleMobileMenu();
-    }, { passive: false });
+    // Use multiple event types for better mobile compatibility
+    ['click', 'touchend'].forEach(eventType => {
+        navbarToggler.addEventListener(eventType, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMobileMenu();
+        }, { passive: false });
+    });
     
     // Listen for window resize to reset collapse state on desktop
     window.addEventListener('resize', function() {
         if (window.innerWidth > 991) {
             navbarCollapse.classList.remove('show');
             navbarCollapse.style.maxHeight = '';
+            navbarToggler.setAttribute('aria-expanded', 'false');
             isAnimating = false;
         } else if (navbarCollapse.classList.contains('show')) {
             // Recalculate height on resize when menu is open
@@ -71,14 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close menu when clicking outside
+    // Close menu when clicking outside using capturing phase for better mobile support
     document.addEventListener('click', function(e) {
-        const isNavbarClicked = navbarToggler.contains(e.target) || navbarCollapse.contains(e.target);
-        
-        if (!isNavbarClicked && navbarCollapse.classList.contains('show') && window.innerWidth <= 991) {
-            toggleMobileMenu();
+        if (window.innerWidth <= 991 && navbarCollapse.classList.contains('show')) {
+            const isNavbarClicked = navbarToggler.contains(e.target) || navbarCollapse.contains(e.target);
+            if (!isNavbarClicked) {
+                toggleMobileMenu();
+            }
         }
-    });
+    }, true);
     
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
@@ -101,10 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
-            window.scrollTo({
-                top: targetSection.offsetTop - (window.innerWidth < 768 ? 60 : 70),
-                behavior: 'smooth'
-            });
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - (window.innerWidth < 768 ? 60 : 70),
+                    behavior: 'smooth'
+                });
+            }
         });
     });
     
@@ -129,6 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollPosition = window.scrollY + 100;
         
         sections.forEach(section => {
+            if (!section.id) return; // Skip sections without IDs
+            
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
@@ -162,8 +174,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('scroll', animateOnScroll);
     
+    // Ensure menu toggles properly even if other scripts interfere
+    window.toggleMobileMenu = toggleMobileMenu;
+    
     // Initial call to set the correct state on page load
     toggleNavbarBg();
     updateActiveNavOnScroll();
     animateOnScroll();
+    
+    // Force initialize navbar state on window load to handle GitHub Pages quirks
+    window.addEventListener('load', function() {
+        // Reset the state
+        navbarCollapse.classList.remove('show');
+        navbarCollapse.style.maxHeight = '0';
+        navbarToggler.setAttribute('aria-expanded', 'false');
+        isAnimating = false;
+        
+        console.log('Window loaded - navbar reset');
+        
+        // Force recalculation of navbar height
+        setTimeout(function() {
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
+            }
+        }, 100);
+    });
 }); 
