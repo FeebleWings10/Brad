@@ -113,9 +113,10 @@ a:hover {
 .navbar {
     background-color: transparent;
     padding: 1rem 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
     z-index: 100;
+    transition: all 0.4s ease;
 }
 
 .navbar-brand {
@@ -130,11 +131,158 @@ a:hover {
     font-weight: 500;
     padding: 0.5rem 1rem;
     transition: var(--transition);
+    position: relative;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: #fff;
+}
+
+.navbar-nav .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover:after,
+.navbar-nav .nav-link.active:after {
+    transform: scaleX(1);
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 4px;
+    transition: var(--transition);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 24px;
+    height: 24px;
+}
+
+/* Mobile menu styles */
+.navbar-collapse {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    max-height: 0;
+    overflow: hidden;
+    will-change: max-height;
+}
+
+.navbar-collapse.show {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+/* Fix for mobile dropdown transitions */
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: 0.75rem 0;
+    }
+    
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    
+    .navbar-toggler {
+        position: relative;
+        z-index: 110;
+        -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    }
+    
+    /* X animation for burger icon when active */
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M6 6L24 24M6 24L24 6'/%3e%3c/svg%3e");
+        transition: background-image 0.3s ease;
+    }
+    
+    .navbar-collapse {
+        background-color: var(--primary-color);
+        margin-top: 0.75rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        padding: 0;
+        overflow: hidden;
+        transform-origin: top;
+    }
+    
+    .navbar-collapse.collapsing,
+    .navbar-collapse.show {
+        padding: 0.75rem 0;
+    }
+    
+    .navbar-nav {
+        padding: 0.5rem;
+    }
+    
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1.25rem;
+        border-radius: 6px;
+        display: block;
+        text-align: left;
+        font-size: 1rem;
+        border-left: 3px solid transparent;
+        transition: all 0.2s ease;
+    }
+    
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-left: 3px solid #fff;
+    }
+    
+    .navbar-nav .nav-link:after {
+        display: none;
+    }
+    
+    /* Ensure the last nav item has no bottom margin */
+    .navbar-nav .nav-item:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        max-height: none !important;
+        overflow: visible;
+    }
+    
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .navbar-nav .nav-item {
+        margin-left: 0.5rem;
+    }
 }
 
 /* Hero Section */

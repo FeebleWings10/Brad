@@ -13,10 +13,75 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
     
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
+    // Mobile menu functionality
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
+    let isAnimating = false;
+    
+    // Toggle mobile menu function with debounce to prevent multiple rapid clicks
+    function toggleMobileMenu(e) {
+        // Prevent default behavior
+        if (e) e.preventDefault();
+        
+        // Prevent multiple clicks during animation
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        if (navbarCollapse.classList.contains('show')) {
+            // Close menu
+            navbarCollapse.classList.remove('show');
+            navbarCollapse.style.maxHeight = '0';
+            navbarToggler.setAttribute('aria-expanded', 'false');
+            
+            // Reset animation flag after transition completes
+            setTimeout(() => {
+                isAnimating = false;
+            }, 300); // Match this with your CSS transition duration
+        } else {
+            // Open menu
+            navbarCollapse.classList.add('show');
+            navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
+            navbarToggler.setAttribute('aria-expanded', 'true');
+            
+            // Reset animation flag after transition completes
+            setTimeout(() => {
+                isAnimating = false;
+            }, 300); // Match this with your CSS transition duration
+        }
+    }
+    
+    // Handle burger button click with touchstart for mobile devices
+    navbarToggler.addEventListener('click', toggleMobileMenu);
+    
+    // Add touchstart event for better mobile response
+    navbarToggler.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // Prevent ghost click
+        toggleMobileMenu();
+    }, { passive: false });
+    
+    // Listen for window resize to reset collapse state on desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 991) {
+            navbarCollapse.classList.remove('show');
+            navbarCollapse.style.maxHeight = '';
+            isAnimating = false;
+        } else if (navbarCollapse.classList.contains('show')) {
+            // Recalculate height on resize when menu is open
+            navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
+        }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const isNavbarClicked = navbarToggler.contains(e.target) || navbarCollapse.contains(e.target);
+        
+        if (!isNavbarClicked && navbarCollapse.classList.contains('show') && window.innerWidth <= 991) {
+            toggleMobileMenu();
+        }
+    });
+    
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -29,8 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // Close mobile menu if open
-            if (navbarCollapse.classList.contains('show')) {
-                navbarToggler.click();
+            if (window.innerWidth <= 991 && navbarCollapse.classList.contains('show')) {
+                toggleMobileMenu();
             }
             
             const targetId = this.getAttribute('href');
