@@ -1,838 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Saints Furniture - Quality Second Hand Furniture in Bromsgrove</title>
-  <style>
-    /* ============ Global Styles ============ */
-    :root {
-      --primary-cream: #f5f2e9;
-      --secondary-cream: #e8e2d1;
-      --accent-cream: #d6ceb8;
-      --text-dark: #3c3c3c;
-      --text-medium: #6a6a6a;
-      --success: #4CAF50;
-      --error: #f44336;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background-color: var(--primary-cream);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    /* ============ Header ============ */
-    header {
-      background-color: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .nav-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px 0;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 600;
-    }
-    .logo span {
-      color: var(--text-medium);
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-    nav ul li {
-      margin-left: 40px;
-      font-weight: 500;
-    }
-    nav ul li a:hover {
-      color: var(--text-medium);
-    }
-    /* ============ Hero Section ============ */
-    .hero {
-      background-color: var(--secondary-cream);
-      /* padding: 100px 0; */
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-medium);
-      max-width: 700px;
-      margin: 0 auto 30px;
-    }
-    .cta-button {
-      display: inline-block;
-      background-color: var(--text-dark);
-      color: white;
-      padding: 12px 30px;
-      border-radius: 30px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-    .cta-button:hover {
-      background-color: var(--text-medium);
-      transform: translateY(-2px);
-    }
-    /* ============ Section ============ */
-    .section {
-      padding: 80px 0;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .section-title h2 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-    }
-    .section-title p {
-      color: var(--text-medium);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    /* ============ Featured Section ============ */
-    .furniture-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    .furniture-card {
-      background-color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-    .furniture-card:hover {
-      transform: translateY(-10px);
-    }
-    .furniture-img {
-      height: 250px;
-      background-color: var(--accent-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-medium);
-      font-size: 1.1rem;
-    }
-    .furniture-info {
-      padding: 20px;
-    }
-    .furniture-info h3 {
-      margin-bottom: 8px;
-    }
-    .furniture-info p {
-      color: var(--text-medium);
-      margin-bottom: 15px;
-    }
-    .price {
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    /* ============ About Section ============ */
-    .about {
-      background-color: var(--secondary-cream);
-    }
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-    .about-image {
-      height: 400px;
-      background-color: var(--accent-cream);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-medium);
-    }
-    .about-text h2 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-    }
-    .about-text p {
-      margin-bottom: 15px;
-      color: var(--text-dark);
-    }
-    /* ============ Testimonial Section ============ */
-    .testimonial {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .testimonial-text {
-      font-size: 1.3rem;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-    .testimonial-author {
-      font-weight: 600;
-    }
-    /* ============ Contact Section ============ */
-    .contact {
-      background-color: var(--secondary-cream);
-    }
-    .contact-flex {
-      display: flex;
-      justify-content: space-between;
-      gap: 50px;
-    }
-    .contact-info,
-    .contact-form {
-      flex: 1;
-    }
-    .contact-info h3,
-    .contact-form h3 {
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-    }
-    .contact-detail {
-      margin-bottom: 15px;
-    }
-    .contact-detail strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--accent-cream);
-      border-radius: 5px;
-      background-color: white;
-    }
-    .form-group textarea {
-      height: 120px;
-      resize: vertical;
-    }
-    /* ============ Form Notifications ============ */
-    .form-message {
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      display: none;
-    }
-    .success-message {
-      background-color: var(--success);
-      color: white;
-    }
-    .error-message {
-      background-color: var(--error);
-      color: white;
-    }
-    /* ============ Footer ============ */
-    footer {
-      background-color: var(--text-dark);
-      color: white;
-      padding: 40px 0;
-      text-align: center;
-    }
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-    .footer-section {
-      flex: 1;
-      margin: 0 20px;
-      text-align: left;
-    }
-    .footer-section h3 {
-      margin-bottom: 20px;
-      font-size: 1.3rem;
-    }
-    .footer-section ul {
-      list-style: none;
-    }
-    .footer-section ul li {
-      margin-bottom: 10px;
-    }
-    .copyright {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 30px;
-      color: rgba(255, 255, 255, 0.7);
-    }
-    /* ============ Responsive Design ============ */
-    @media (max-width: 768px) {
-      .nav-container {
-        flex-direction: column;
-      }
-      nav ul {
-        display: flex; 
-        flex-direction: row; /* or row if you still want them in one line */
-        align-items: center;    /* centers li items horizontally */
-        margin: 0; 
-        padding: 0; 
-        list-style: none;
-      }
-      nav ul li {
-        margin: 0 15px;
-      }
-      .about-content {
-        grid-template-columns: 1fr;
-      }
-      .contact-flex {
-        flex-direction: column;
-      }
-      .footer-content {
-        flex-direction: column;
-      }
-      .footer-section {
-        margin-bottom: 30px;
-      }
-    }
-
-    @keyframes shakeGlow {
-  0% {
-    transform: translate(0);
-    box-shadow: 0 0 5px rgba(59, 89, 152, 0);
-  }
-  5% {
-    transform: translate(-3px, 3px);
-    box-shadow: 0 0 15px rgba(59, 89, 152, 0.7);
-  }
-  10% {
-    transform: translate(3px, -3px);
-    box-shadow: 0 0 25px rgba(59, 89, 152, 1);
-  }
-  15% {
-    transform: translate(-3px, 3px);
-    box-shadow: 0 0 15px rgba(59, 89, 152, 0.7);
-  }
-  20% {
-    transform: translate(0);
-    box-shadow: 0 0 5px rgba(59, 89, 152, 0);
-  }
-  100% {
-    transform: translate(0);
-    box-shadow: 0 0 5px rgba(59, 89, 152, 0);
-  }
-}
-
-.facebook-icon {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: #3b5998;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  box-shadow: 0 0 5px rgba(59, 89, 152, 0);
-  animation: shakeGlow 10s infinite;
-}
-
-
-
-.facebook-icon img {
-  width: 100%;
-  height: 100%;
-}
-
-
-
-/* Slider container */
-.slider {
-  position: relative;
-  overflow: hidden;
-  height: 250px; /* same height as before */
-}
-
-/* Container for all slides */
-.slides {
-  display: flex;
-  transition: transform 0.5s ease;
-  height: 100%;
-}
-
-/* Each slide */
-.slides img {
-  min-width: 100%;
-  object-fit: cover;
-}
-
-/* Navigation buttons */
-.prev,
-.next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
-
-
-  </style>
-
-  <!-- 1) Include EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      // 2) Initialize EmailJS with your PUBLIC KEY
-      emailjs.init("QKHY0MI9MmhJkX9bo");
-    })();
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Saints Furniture - Luxury Sofas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header -->
-
-
-<!-- Banner Section -->
-<section class="hero" id="home">
-    <div class="banner-container">
-      <!-- 1312x736 Banner Image -->
-      <img 
-        src="banner.png" 
-        alt="All Saints Furniture Banner" 
-        width="1312" 
-        height="736" 
-        style="max-width:100%; height:auto; display:block; margin:0 auto;" 
-      />
-    </div>
-  </section>
-  <header>
-    <div class="container">
-      <div class="nav-container">
-        <div class="logo">
-        </div>
+    <header>
         <nav>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#featured">Featured</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+            <div class="logo"><a href="index.html">All Saints Furniture</a></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="stock.html">Our Stock</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
-      </div>
-    </div>
-  </header>
-  
+    </header>
 
-  <!-- Featured Section -->
-  <section class="section" id="featured">
-    <div class="container">
-      <div class="section-title">
-        <h2>Featured Pieces</h2>
-        <p>
-          Explore our handpicked selection of quality second hand furniture.
-          Each piece has been carefully restored to bring out its original
-          beauty.
-        </p>
-      </div>
-      <div class="furniture-grid">
-        <div class="furniture-card">
-            <div class="slider">
-              <div class="slides">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Front View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Side View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Detail View">
-              </div>
-              <button class="prev">&#10094;</button>
-              <button class="next">&#10095;</button>
+    <main>
+        <section class="hero">
+            <h1>Luxury Sofas for Your Home</h1>
+            <p>Discover our exclusive collection of premium furniture</p>
+            <a href="stock.html" class="cta-button">View Collection</a>
+        </section>
+
+        <section class="featured-products">
+            <h2>Featured Sofas</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="images/white.jpg" alt="Striped Contemporary Sofa">
+                    <h3>Striped Contemporary Sofa</h3>
+                    <p>£449</p>
+                    <a href="products/white.html" class="view-button">View Details</a>
+                </div>
+                <div class="product-card">
+                    <img src="images/sofa2.jpg" alt="Modern Sectional">
+                    <h3>Modern Sectional</h3>
+                    <p>£1,899</p>
+                    <a href="products/sectional.html" class="view-button">View Details</a>
+                </div>
+                <div class="product-card">
+                    <img src="images/sofa3.jpg" alt="Contemporary 3-Seater">
+                    <h3>Contemporary 3-Seater</h3>
+                    <p>£999</p>
+                    <a href="products/contemporary.html" class="view-button">View Details</a>
+                </div>
             </div>
-            <div class="furniture-info">
-              <a href="sofa1.html"><h3>Vintage Chesterfield Sofa</h3></a>
-              <a href="sofa1.html"><p>Classic brown leather, fully restored with new padding and polished studs.</p></a>
-              <span class="price">£650</span>
+        </section>
+
+        <section class="about">
+            <h2>Why Choose All Saints Furniture?</h2>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-medal"></i>
+                    <h3>Premium Quality</h3>
+                    <p>Handcrafted with the finest materials</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Free Delivery</h3>
+                    <p>Across the United Kingdom</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>Expert Support</h3>
+                    <p>Dedicated customer service</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>All Saints Furniture</h3>
+                <p>Luxury furniture for your home</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@allsaintsfurniture.com</p>
+                <p>Phone: 020 7123 4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
             </div>
         </div>
-
-        <div class="furniture-card">
-            <div class="slider">
-              <div class="slides">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Front View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Side View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Detail View">
-              </div>
-              <button class="prev">&#10094;</button>
-              <button class="next">&#10095;</button>
-            </div>
-            <div class="furniture-info">
-              <a href="sofa1.html"><h3>Vintage Chesterfield Sofa</h3></a>
-              <a href="sofa1.html"><p>Classic brown leather, fully restored with new padding and polished studs.</p></a>
-              <span class="price">£650</span>
-            </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 All Saints Furniture. All rights reserved.</p>
         </div>
+    </footer>
 
-        <div class="furniture-card">
-            <div class="slider">
-              <div class="slides">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Front View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Side View">
-                <img src="1.png" alt="Vintage Chesterfield Sofa - Detail View">
-              </div>
-              <button class="prev">&#10094;</button>
-              <button class="next">&#10095;</button>
-            </div>
-            <div class="furniture-info">
-              <a href="sofa1.html"><h3>Vintage Chesterfield Sofa</h3></a>
-              <a href="sofa1.html"><p>Classic brown leather, fully restored with new padding and polished studs.</p></a>
-              <span class="price">£650</span>
-            </div>
-        </div>
-
-        
-
-        <!-- ... more furniture items ... -->
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="section about" id="about">
-    <div class="container">
-      <div class="about-content">
-        <div class="about-image">
-          Our Bromsgrove Showroom
-        </div>
-        <div class="about-text">
-          <h2>About All Saints Furniture</h2>
-          <p>
-            All Saints Furniture was established in 2015 with a simple mission:
-            to rescue beautiful furniture pieces and give them a second life.
-            Located in the charming town of Bromsgrove, our showroom displays a
-            carefully curated collection of second-hand sofas, armchairs, and
-            other furniture pieces.
-          </p>
-          <p>
-            Each item is thoroughly inspected, professionally cleaned, and
-            restored when necessary. We believe in quality craftsmanship and
-            sustainable living - by choosing pre-loved furniture, you're not
-            only getting unique character pieces but also making an
-            environmentally conscious choice.
-          </p>
-          <p>
-            Our Bromsgrove location allows us to serve customers throughout
-            Worcestershire and the West Midlands. We pride ourselves on offering
-            exceptional customer service and honest advice to help you find the
-            perfect piece for your home.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial Section -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>What Our Customers Say</h2>
-      </div>
-      <div class="testimonial">
-        <p class="testimonial-text">
-          "I found the most beautiful Chesterfield sofa at All Saints Furniture.
-          It looks brand new but has the character of a vintage piece. The team
-          in Bromsgrove was so helpful and delivery was prompt. I couldn't be
-          happier with my purchase!"
-        </p>
-        <p class="testimonial-author">- Sarah Thompson, Redditch</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="section contact" id="contact">
-    <div class="container">
-      <div class="section-title">
-        <h2>Get In Touch</h2>
-        <p>
-          Have a question or want to check availability? Reach out to our
-          friendly team in Bromsgrove.
-        </p>
-      </div>
-      <div class="contact-flex">
-        <!-- Contact Info -->
-        <div class="contact-info">
-          <h3>Contact Information</h3>
-          <div class="contact-detail">
-            <strong>Address:</strong>
-            15 High Street, Bromsgrove, Worcestershire, B61 8AQ
-          </div>
-          <div class="contact-detail">
-            <strong>Phone:</strong>
-            01527 123 456
-          </div>
-          <div class="contact-detail">
-            <strong>Email:</strong>
-            info@allsaintsfurniture.co.uk
-          </div>
-          <div class="contact-detail">
-            <strong>Opening Hours:</strong>
-            Monday - Saturday: 10am - 5pm<br />
-            Sunday: 11am - 4pm
-          </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="contact-form">
-          <h3>Send Us a Message</h3>
-          <div id="success-message" class="form-message success-message">
-            Your message has been sent successfully! We'll get back to you soon.
-          </div>
-          <div id="error-message" class="form-message error-message">
-            There was a problem sending your message. Please try again later.
-          </div>
-
-          <!-- 3) Our EmailJS Form -->
-          <form id="contact-form">
-            <div class="form-group">
-              <label for="from_name">Name</label>
-              <input type="text" id="from_name" name="from_name" required />
-            </div>
-            <div class="form-group">
-              <label for="reply_to">Email</label>
-              <input type="email" id="reply_to" name="reply_to" required />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" />
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="cta-button">Send Message</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>All Saints Furniture</h3>
-          <p>
-            Quality second hand furniture in Bromsgrove, serving Worcestershire
-            and the West Midlands since 2015.
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#featured">Featured Items</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Visit Us</h3>
-          <p>
-            15 High Street<br />
-            Bromsgrove<br />
-            Worcestershire<br />
-            B61 8AQ
-          </p>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>&copy; 2025 All Saints Furniture. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- 4) JavaScript to handle form submission with EmailJS -->
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const sliders = document.querySelectorAll('.slider');
-
-  sliders.forEach(slider => {
-    let currentSlide = 0;
-    let autoScrollInterval = null;
-    let startX = 0;
-    let isDragging = false;
-    const slides = slider.querySelector('.slides');
-    const totalSlides = slides.children.length;
-    const nextButton = slider.querySelector('.next');
-    const prevButton = slider.querySelector('.prev');
-
-    // Update the slide position with a smooth transition
-    function updateSlide() {
-      slides.style.transition = 'transform 0.5s ease';
-      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-
-    // Button controls
-    nextButton.addEventListener('click', () => {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateSlide();
-    });
-
-    prevButton.addEventListener('click', () => {
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateSlide();
-    });
-
-    // Auto-scroll functions (for desktop hover)
-    function startAutoScroll() {
-      if (!autoScrollInterval) {
-        autoScrollInterval = setInterval(() => {
-          currentSlide = (currentSlide + 1) % totalSlides;
-          updateSlide();
-        }, 2500);
-      }
-    }
-
-    function stopAutoScroll() {
-      if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
-      }
-    }
-
-    // Desktop auto-scroll triggers
-    slider.addEventListener('mouseenter', startAutoScroll);
-    slider.addEventListener('mouseleave', stopAutoScroll);
-
-    // Touch events for mobile dragging
-    slider.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-      slides.style.transition = 'none'; // disable transition during drag
-      stopAutoScroll(); // stop auto-scroll while dragging
-    });
-
-    slider.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const currentX = e.touches[0].clientX;
-      const deltaX = currentX - startX;
-      // Move the slides relative to the current slide and drag distance
-      slides.style.transform = `translateX(calc(-${currentSlide * 100}% + ${deltaX}px))`;
-    });
-
-    slider.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      const endX = e.changedTouches[0].clientX;
-      const deltaX = endX - startX;
-      const swipeThreshold = 50; // minimum pixels needed to swipe
-
-      if (deltaX > swipeThreshold) {
-        // Swipe right: go to previous slide
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      } else if (deltaX < -swipeThreshold) {
-        // Swipe left: go to next slide
-        currentSlide = (currentSlide + 1) % totalSlides;
-      }
-      // Re-enable the transition and update to the chosen slide
-      slides.style.transition = 'transform 0.5s ease';
-      updateSlide();
-      isDragging = false;
-    });
-
-    slider.addEventListener('touchcancel', (e) => {
-      // In case of cancellation, simply snap back to the current slide
-      slides.style.transition = 'transform 0.5s ease';
-      updateSlide();
-      isDragging = false;
-    });
-  });
-});
-
-      // Stop auto-scroll when mouse leaves or touch ends
-      function stopAutoScroll() {
-        if (autoScrollInterval) {
-          clearInterval(autoScrollInterval);
-          autoScrollInterval = null;
-        }
-      }
-
-      // For desktop devices
-      slider.addEventListener('mouseenter', startAutoScroll);
-      slider.addEventListener('mouseleave', stopAutoScroll);
-
-      // For touch devices (mobile)
-      slider.addEventListener('touchstart', startAutoScroll);
-      slider.addEventListener('touchend', stopAutoScroll);
-      slider.addEventListener('touchcancel', stopAutoScroll);
-
-
-
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      // 5) Use your actual Service ID, Template ID, and the form element (this)
-      emailjs.sendForm('service_565936a', 'template_guws2pd ', this)
-        .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-          // Show success message
-          document.getElementById('success-message').style.display = 'block';
-          document.getElementById('error-message').style.display = 'none';
-          // Reset the form
-          document.getElementById('contact-form').reset();
-          // Hide the success message after 5 seconds
-          setTimeout(function() {
-            document.getElementById('success-message').style.display = 'none';
-          }, 5000);
-        }, function(error) {
-          console.log('FAILED...', error);
-          // Show error message
-          document.getElementById('error-message').style.display = 'block';
-          document.getElementById('success-message').style.display = 'none';
-          // Hide the error message after 5 seconds
-          setTimeout(function() {
-            document.getElementById('error-message').style.display = 'none';
-          }, 5000);
-        });
-    });
-  </script>
-<!-- Floating Facebook Icon -->
-<a href="https://www.facebook.com/profile.php?id=100090859661130" target="_blank" class="facebook-icon">
-    <img src="facebook.png" alt="Facebook" />
-  </a>
-  
+    <script src="script.js"></script>
 </body>
-</html>
+</html> 
